@@ -1,11 +1,11 @@
 
 // JsonModel Property Decorator
 export const JsonModelProperty = (target: any, key: string) => {
-  const getter = function () {
+  const getter = function (this: any) {
     return this.__JsonModel__values[key];
   };
 
-  const setter = function (newValue: any) {
+  const setter = function (this: any, newValue: any) {
     this.__JsonModel__values[key] = newValue;
     this.__JsonModel__history.push(this.toJson());
   };
