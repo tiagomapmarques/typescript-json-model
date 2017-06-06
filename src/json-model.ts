@@ -7,7 +7,10 @@ export const JsonModelProperty = (target: any, key: string) => {
 
   const setter = function (this: any, newValue: any) {
     this.__JsonModel__values[key] = newValue;
-    if (JsonModel.writeHistory && this.__JsonModel__history) {
+    if (JsonModel.writeHistory &&
+      (!!(target.writeHistory === undefined) || target.writeHistory) &&
+      this.__JsonModel__history
+    ) {
       this.__JsonModel__history.push(this.toJson());
     }
   };
@@ -33,15 +36,15 @@ export abstract class JsonModel<T> {
     this.__JsonModel__original = json;
     this.__JsonModel__values = <any>{};
 
-    if (JsonModel.writeHistory) {
+    if (Object.getPrototypeOf(this).constructor.writeHistory) {
       this.__JsonModel__history = [];
     }
   }
 
   public toJson(): T {
-    return <T> Object.keys((<any>this).__JsonModel__values).reduce((json, key) => ({
+    return <T> Object.keys(this.__JsonModel__values).reduce((json, key) => ({
       ...json,
-      [key]: ((<any>this).__JsonModel__values)[key],
+      [key]: (<any>(this.__JsonModel__values))[key],
     }), {});
   }
 }
