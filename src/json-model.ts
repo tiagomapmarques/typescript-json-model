@@ -1,5 +1,5 @@
 
-const isDevMode = process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'develop' || process.env.NODE_ENV === 'development';
+const isDevMode = !process.env.NODE_ENV || process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'develop' || process.env.NODE_ENV === 'development';
 
 // JsonModel Property Decorator
 export const JsonModelProperty = (target: any, key: string) => {
