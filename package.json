@@ -1,0 +1,19 @@
+{
+  "name": "typescript-json-model",
+  "version": "0.0.1",
+  "description": "Json Model implementation for Typescript",
+  "main": "./index.ts",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json"
+  },
+  "author": "Tiago Marques",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tiagomapmarques/typescript-json-model.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "~2.3.0"
+  }
+}
