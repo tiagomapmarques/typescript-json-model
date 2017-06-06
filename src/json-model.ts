@@ -1,6 +1,4 @@
 
-const isDevMode = !process.env.NODE_ENV || process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'develop' || process.env.NODE_ENV === 'development';
-
 // JsonModel Property Decorator
 export const JsonModelProperty = (target: any, key: string) => {
   const getter = function (this: any) {
@@ -9,7 +7,7 @@ export const JsonModelProperty = (target: any, key: string) => {
 
   const setter = function (this: any, newValue: any) {
     this.__JsonModel__values[key] = newValue;
-    if (isDevMode && this.__JsonModel__history) {
+    if (JsonModel.writeHistory && this.__JsonModel__history) {
       this.__JsonModel__history.push(this.toJson());
     }
   };
@@ -26,6 +24,7 @@ export const JsonModelProperty = (target: any, key: string) => {
 
 // JsonModel Class
 export abstract class JsonModel<T> {
+  public static writeHistory: boolean;
   protected __JsonModel__original: T;
   protected __JsonModel__history: T[];
   protected __JsonModel__values: T;
@@ -34,7 +33,7 @@ export abstract class JsonModel<T> {
     this.__JsonModel__original = json;
     this.__JsonModel__values = <any>{};
 
-    if (isDevMode) {
+    if (JsonModel.writeHistory) {
       this.__JsonModel__history = [];
     }
   }
@@ -46,3 +45,5 @@ export abstract class JsonModel<T> {
     }), {});
   }
 }
+
+JsonModel.writeHistory = true;

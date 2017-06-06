@@ -1,6 +1,6 @@
 {
   "name": "typescript-json-model",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Json Model implementation for Typescript",
   "main": "./lib/index.js",
   "scripts": {
